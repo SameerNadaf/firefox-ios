@@ -101,7 +101,14 @@ struct TermsOfUseStrings {
     }
 
     var linkTerms: [String] {
-        return TermsOfUseLinkType.allCases.map { $0.localizedText }
+        let types: [TermsOfUseLinkType]
+        switch option {
+        case .value0:
+            types = [.termsOfUse, .privacyNotice, .learnMore]
+        case .value1, .value2:
+            types = [.termsOfUse, .privacyNotice, .here]
+        }
+        return types.map { $0.localizedText }
     }
 
     func linkURL(for term: String) -> URL? {
